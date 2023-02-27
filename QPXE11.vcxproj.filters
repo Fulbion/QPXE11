@@ -84,6 +84,15 @@
     <ClInclude Include="include\Engine\Prerequisites.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="include\Engine\Graphics\ResourceManager\MeshManager\MeshManager.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\Graphics\ResourceManager\MeshManager\Mesh.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\Math\VertexMesh.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\App\AppWindow.cpp">
@@ -137,5 +146,14 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Graphics\ResourceManager\MeshManager\MeshManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Graphics\ResourceManager\MeshManager\Mesh.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="resources\shaders\VertexMeshLayoutShader.hlsl" />
   </ItemGroup>
 </Project>

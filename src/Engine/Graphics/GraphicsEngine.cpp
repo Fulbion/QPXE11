@@ -8,11 +8,21 @@ GraphicsEngine::GraphicsEngine()
 {
 	m_renderSystem = new RenderSystem();
 	m_textureManager = new TextureManager();
+	m_meshManager = new MeshManager();
+
+	void* shaderByteCode = nullptr;
+	size_t sizeShader = 0;
+	m_renderSystem->compileVertexShader(L"resources/shaders/VertexMeshLayoutShader.hlsl", "vsmain", &shaderByteCode, &sizeShader);
+	memcpy(m_meshLayoutByteCode, shaderByteCode, sizeShader);
+	m_meshLayoutSize = sizeShader;
+	m_renderSystem->releaseCompiledShader();
+
 }
 
 GraphicsEngine::~GraphicsEngine()
 {
 	GraphicsEngine::m_engine = nullptr;
+	delete m_meshManager;
 	delete m_textureManager;
 	delete m_renderSystem;
 }
@@ -42,4 +52,15 @@ RenderSystem* GraphicsEngine::getRenderSystem()
 TextureManager* GraphicsEngine::getTextureManager()
 {
 	return m_textureManager;
+}
+
+MeshManager* GraphicsEngine::getMeshManager()
+{
+	return m_meshManager;
+}
+
+void GraphicsEngine::getVMLSByteCodeAndSize(void** byteCode, size_t* size)
+{
+	*byteCode = m_meshLayoutByteCode;
+	*size = m_meshLayoutSize;
 }

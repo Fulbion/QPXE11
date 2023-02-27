@@ -1,2 +1,48 @@
-﻿  Window.cpp
+﻿  AppWindow.cpp
+C:\Users\Fulbion\source\repos\QPXE11\src\App\AppWindow.cpp(30,28): warning C4244: '=' : conversion de 'ULONGLONG' en 'UINT', perte possible de données
+C:\Users\Fulbion\source\repos\QPXE11\src\App\AppWindow.cpp(226,29): warning C4244: '=' : conversion de 'ULONGLONG' en 'float', perte possible de données
+C:\Users\Fulbion\source\repos\QPXE11\src\App\AppWindow.cpp(289,70): warning C4244: 'argument' : conversion de 'float' en 'T', perte possible de données
+          with
+          [
+              T=int
+          ]
+C:\Users\Fulbion\source\repos\QPXE11\src\App\AppWindow.cpp(289,55): warning C4244: 'argument' : conversion de 'float' en 'T', perte possible de données
+          with
+          [
+              T=int
+          ]
+C:\Users\Fulbion\source\repos\QPXE11\include\Engine\Math\Matrix4x4.hpp(154,16): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+C:\Users\Fulbion\source\repos\QPXE11\include\Engine\Math\Matrix4x4.hpp(153,1): message : pendant la compilation de la fonction membre classe modèle 'void Matrix4x4<float>::setPrespectiveFovLH(T,T,T,T)'
+          with
+          [
+              T=float
+          ]
+C:\Users\Fulbion\source\repos\QPXE11\src\App\AppWindow.cpp(72,37): message : voir la référence à l'instanciation de la fonction modèle 'void Matrix4x4<float>::setPrespectiveFovLH(T,T,T,T)' en cours de compilation
+          with
+          [
+              T=float
+          ]
+C:\Users\Fulbion\source\repos\QPXE11\include\App\AppWindow.hpp(79,19): message : voir la référence à l'instanciation classe modèle 'Matrix4x4<float>' en cours de compilation
+C:\Users\Fulbion\source\repos\QPXE11\include\Engine\Math\Matrix4x4.hpp(106,40): warning C4244: '=' : conversion de 'double' en 'T', perte possible de données
+          with
+          [
+              T=float
+          ]
+C:\Users\Fulbion\source\repos\QPXE11\include\Engine\Math\Matrix4x4.hpp(81,1): message : pendant la compilation de la fonction membre classe modèle 'void Matrix4x4<float>::inverse(void)'
+C:\Users\Fulbion\source\repos\QPXE11\src\App\AppWindow.cpp(57,21): message : voir la référence à l'instanciation de la fonction modèle 'void Matrix4x4<float>::inverse(void)' en cours de compilation
+C:\Users\Fulbion\source\repos\QPXE11\include\Engine\Math\Matrix4x4.hpp(107,40): warning C4244: '=' : conversion de 'double' en 'T', perte possible de données
+          with
+          [
+              T=float
+          ]
+C:\Users\Fulbion\source\repos\QPXE11\include\Engine\Math\Matrix4x4.hpp(108,40): warning C4244: '=' : conversion de 'double' en 'T', perte possible de données
+          with
+          [
+              T=float
+          ]
+C:\Users\Fulbion\source\repos\QPXE11\include\Engine\Math\Matrix4x4.hpp(109,40): warning C4244: '=' : conversion de 'double' en 'T', perte possible de données
+          with
+          [
+              T=float
+          ]
   QPXE11.vcxproj -> C:\Users\Fulbion\source\repos\QPXE11\bin\x64\Debug\QPXE11.exe

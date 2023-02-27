@@ -18,6 +18,10 @@
 #include "Engine/Math/Vector3D.hpp"
 #include "Engine/Math/Vector4D.hpp"
 #include "Engine/Math/Matrix4x4.hpp"
+#include "Engine/Graphics/ResourceManager/TextureManager/TextureManager.hpp"
+#include "Engine/Graphics/ResourceManager/TextureManager/Texture.hpp"
+#include "Engine/Graphics/ResourceManager/MeshManager/MeshManager.hpp"
+#include "Engine/Graphics/ResourceManager/MeshManager/Mesh.hpp"
 
 class AppWindow :
 	public Window,
@@ -55,6 +59,7 @@ private:
 	VertexShaderPtr m_vs;
 	PixelShaderPtr m_ps;
 	TexturePtr m_testTexture;
+	MeshPtr m_testModel;
 	
 	float m_oldDelta = 0;
 	float m_newDelta = 0;

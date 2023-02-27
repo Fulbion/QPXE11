@@ -153,6 +153,8 @@
     <ClInclude Include="include\Engine\Graphics\RenderSystem\SwapChain\SwapChain.hpp" />
     <ClInclude Include="include\Engine\Graphics\RenderSystem\VertexBuffer\VertexBuffer.hpp" />
     <ClInclude Include="include\Engine\Graphics\RenderSystem\VertexShader\VertexShader.hpp" />
+    <ClInclude Include="include\Engine\Graphics\ResourceManager\MeshManager\Mesh.hpp" />
+    <ClInclude Include="include\Engine\Graphics\ResourceManager\MeshManager\MeshManager.hpp" />
     <ClInclude Include="include\Engine\Graphics\ResourceManager\Resource.hpp" />
     <ClInclude Include="include\Engine\Graphics\ResourceManager\ResourceManager.hpp" />
     <ClInclude Include="include\Engine\Graphics\ResourceManager\TextureManager\Texture.hpp" />
@@ -164,6 +166,7 @@
     <ClInclude Include="include\Engine\Math\Vector2D.hpp" />
     <ClInclude Include="include\Engine\Math\Vector3D.hpp" />
     <ClInclude Include="include\Engine\Math\Vector4D.hpp" />
+    <ClInclude Include="include\Engine\Math\VertexMesh.hpp" />
     <ClInclude Include="include\Engine\Prerequisites.hpp" />
     <ClInclude Include="include\Engine\Window\Window.hpp" />
   </ItemGroup>
@@ -178,6 +181,8 @@
     <ClCompile Include="src\Engine\Graphics\RenderSystem\SwapChain\SwapChain.cpp" />
     <ClCompile Include="src\Engine\Graphics\RenderSystem\VertexBuffer\VertexBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\RenderSystem\VertexShader\VertexShader.cpp" />
+    <ClCompile Include="src\Engine\Graphics\ResourceManager\MeshManager\Mesh.cpp" />
+    <ClCompile Include="src\Engine\Graphics\ResourceManager\MeshManager\MeshManager.cpp" />
     <ClCompile Include="src\Engine\Graphics\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="src\Engine\Graphics\ResourceManager\Resources.cpp" />
     <ClCompile Include="src\Engine\Graphics\ResourceManager\TextureManager\Texture.cpp" />
@@ -185,6 +190,16 @@
     <ClCompile Include="src\Engine\Input\InputSystem.cpp" />
     <ClCompile Include="src\Engine\Window\Window.cpp" />
     <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="resources\shaders\VertexMeshLayoutShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

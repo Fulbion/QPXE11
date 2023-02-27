@@ -27,7 +27,7 @@ AppWindow::~AppWindow()
 void AppWindow::update()
 {
 	Constant cc;
-	cc.m_time = GetTickCount();
+	cc.m_time = GetTickCount64();
 
 	float4x4 temp;
 
@@ -82,6 +82,7 @@ void AppWindow::onCreate()
 	InputSystem::get()->showCursor(false);
 
 	m_testTexture = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"resources/images/textures/test.png");
+	m_testModel = GraphicsEngine::get()->getMeshManager()->createMeshFromFile(L"resources/models/torus.obj");
 
 	RECT rc = this->getClientWindowRect();
 	m_swapChain = GraphicsEngine::get()->getRenderSystem()->createSwapChain(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
@@ -148,7 +149,7 @@ void AppWindow::onCreate()
 	UINT sizeList = ARRAYSIZE(vertexList);
 
 
-	unsigned int indexList[] =
+	UINT indexList[] =
 	{
 		0, 1, 2,
 		2, 3, 0,
@@ -214,19 +215,15 @@ void AppWindow::onUpdate()
 
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setTexture(m_ps, m_testTexture);
 
-	//SET THE VERTICES OF THE TRIANGLE TO DRAW
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
-	//SET THE INDICES OF THE TRIANGLE TO DRAW
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setIndexBuffer(m_ib);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(m_testModel->getVertexBuffer());
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setIndexBuffer(m_testModel->getIndexBuffer());
 
-
-	// FINALLY DRAW THE TRIANGLE
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawIndexedTriangleList(m_ib->getSizeIndexList(), 0, 0);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawIndexedTriangleList(m_testModel->getIndexBuffer()->getSizeIndexList(), 0, 0);
 	m_swapChain->present(true);
 
 
 	m_oldDelta = m_newDelta;
-	m_newDelta = ::GetTickCount();
+	m_newDelta = GetTickCount64();
 
 	m_deltaTime = (m_oldDelta) ? ((m_newDelta - m_oldDelta) / 1000.0f) : 0;
 }
