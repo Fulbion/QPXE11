@@ -8,19 +8,22 @@ class VertexMesh
 public:
 	VertexMesh() :
 		position(),
-		texcoord()
+		texcoord(),
+		normal()
 	{
 	}
 
-	VertexMesh(Vector3D<float> position, Vector2D<float> texcoord) :
+	VertexMesh(Vector3D<float> position, Vector2D<float> texcoord, Vector3D<float> normal) :
 		position(position),
-		texcoord(texcoord)
+		texcoord(texcoord),
+		normal(normal)
 	{
 	}
 
 	VertexMesh(const VertexMesh& vertex) :
 		position(vertex.position),
-		texcoord(vertex.texcoord)
+		texcoord(vertex.texcoord),
+		normal(vertex.normal)
 	{
 	}
 
@@ -31,4 +34,5 @@ public:
 public:
 	Vector3D<float> position;
 	Vector2D<float> texcoord;
+	Vector3D<float> normal;
 };

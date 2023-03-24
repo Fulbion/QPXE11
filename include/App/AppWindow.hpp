@@ -71,6 +71,9 @@ private:
 	float m_rotationX = 0;
 	float m_rotationY = 0;
 	float m_rotationZ = 0;
+
+	float m_lightRotationY = 0.0f;
+
 	float m_scale = 1;
 	float m_forward = 0.0f;
 	float m_upward = 0.0f;

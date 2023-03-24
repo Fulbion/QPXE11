@@ -50,8 +50,12 @@ Mesh::Mesh(const wchar_t* fullPath) :
 
 				tinyobj::real_t tx = attribs.texcoords[index.texcoord_index * 2 + 0];
 				tinyobj::real_t ty = attribs.texcoords[index.texcoord_index * 2 + 1];
-			
-				VertexMesh vertex(Vector3f(vx, vy, vz), Vector2f(tx, ty));
+
+				tinyobj::real_t nx = attribs.normals[index.normal_index * 3 + 0];
+				tinyobj::real_t ny = attribs.normals[index.normal_index * 3 + 1];
+				tinyobj::real_t nz = attribs.normals[index.normal_index * 3 + 2];
+
+				VertexMesh vertex(Vector3f(vx, vy, vz), Vector2f(tx, ty), Vector3f(nx, ny, nz));
 				listVertices.push_back(vertex);
 				listIndices.push_back(indexOffset + v);
 			}

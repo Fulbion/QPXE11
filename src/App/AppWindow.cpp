@@ -13,7 +13,8 @@ struct Constant
 	float4x4 m_world;
 	float4x4 m_view;
 	float4x4 m_projection;
-	UINT m_time;
+	float4 m_lightDirection;
+	float4 m_cameraPosition;
 };
 
 AppWindow::AppWindow()
@@ -27,12 +28,17 @@ AppWindow::~AppWindow()
 void AppWindow::update()
 {
 	Constant cc;
-	cc.m_time = GetTickCount64();
-
-	float4x4 temp;
 
 	m_deltaPos += m_deltaTime / 10.0f;
 	if (m_deltaPos > 1.0f) m_deltaPos = 0;
+
+	float4x4 temp;
+	float4x4 lightRotationMatrix;
+	lightRotationMatrix.setIdentity();
+	lightRotationMatrix.rotateY(m_lightRotationY);
+	m_lightRotationY += degToRad(45) * m_deltaTime;
+
+	cc.m_lightDirection = lightRotationMatrix.getZDirection();
 
 	m_deltaScale += m_deltaTime / 0.5f;
 
@@ -49,10 +55,11 @@ void AppWindow::update()
 	temp.rotateY(m_rotationY);
 	worldCamera *= temp;
 
-	Vector3f newPosition = m_worldCamera.getTranslation() + worldCamera.getZDirection() * (m_forward * 0.025f);
-	newPosition = newPosition + worldCamera.getXDirection() * (m_rightward * 0.025f);
+	Vector3f newPosition = m_worldCamera.getTranslation() + worldCamera.getZDirection() * (m_forward * 0.01f);
+	newPosition = newPosition + worldCamera.getXDirection() * (m_rightward * 0.01f);
 
 	worldCamera.translate(newPosition);
+	cc.m_cameraPosition = newPosition;
 	m_worldCamera = worldCamera;
 	worldCamera.inverse();
 
@@ -82,12 +89,12 @@ void AppWindow::onCreate()
 	InputSystem::get()->showCursor(false);
 
 	m_testTexture = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"resources/images/textures/test.png");
-	m_testModel = GraphicsEngine::get()->getMeshManager()->createMeshFromFile(L"resources/models/torus.obj");
+	m_testModel = GraphicsEngine::get()->getMeshManager()->createMeshFromFile(L"resources/models/statue.obj");
 
 	RECT rc = this->getClientWindowRect();
 	m_swapChain = GraphicsEngine::get()->getRenderSystem()->createSwapChain(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
 
-	m_worldCamera.translate(Vector3f(0, 0, -2));
+	m_worldCamera.translate(Vector3f(0, 0, -1));
 
 	float3 positionList[] =
 	{
@@ -188,7 +195,6 @@ void AppWindow::onCreate()
 	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
 
 	Constant cc;
-	cc.m_time = 0;
 
 	m_cb = GraphicsEngine::get()->getRenderSystem()->createConstantBuffer(&cc, sizeof(Constant));
 }
@@ -253,22 +259,22 @@ void AppWindow::onKeyPressed(int key)
 {
 	if (key == 'Z')
 	{
-		m_forward = 1.0f;
+		m_forward = 0.5f;
 	}
 
 	if (key == 'S')
 	{
-		m_forward = -1.0f;
+		m_forward = -0.5f;
 	}
 
 	if (key == 'Q')
 	{
-		m_rightward = -1.0f;
+		m_rightward = -0.5f;
 	}
 
 	if (key == 'D')
 	{
-		m_rightward = 1.0f;
+		m_rightward = 0.5f;
 	}
 }
 

@@ -1,0 +1,62 @@
+﻿  AppWindow.cpp
+C:\Users\Fulbion\source\repos\QPXE11\src\App\AppWindow.cpp(229,29): warning C4244: '=' : conversion de 'ULONGLONG' en 'float', perte possible de données
+C:\Users\Fulbion\source\repos\QPXE11\src\App\AppWindow.cpp(292,70): warning C4244: 'argument' : conversion de 'float' en 'T', perte possible de données
+          with
+          [
+              T=int
+          ]
+C:\Users\Fulbion\source\repos\QPXE11\src\App\AppWindow.cpp(292,55): warning C4244: 'argument' : conversion de 'float' en 'T', perte possible de données
+          with
+          [
+              T=int
+          ]
+C:\Users\Fulbion\source\repos\QPXE11\include\Engine\Math\Matrix4x4.hpp(154,16): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+C:\Users\Fulbion\source\repos\QPXE11\include\Engine\Math\Matrix4x4.hpp(153,1): message : pendant la compilation de la fonction membre classe modèle 'void Matrix4x4<float>::setPrespectiveFovLH(T,T,T,T)'
+          with
+          [
+              T=float
+          ]
+C:\Users\Fulbion\source\repos\QPXE11\src\App\AppWindow.cpp(76,37): message : voir la référence à l'instanciation de la fonction modèle 'void Matrix4x4<float>::setPrespectiveFovLH(T,T,T,T)' en cours de compilation
+          with
+          [
+              T=float
+          ]
+C:\Users\Fulbion\source\repos\QPXE11\include\App\AppWindow.hpp(79,19): message : voir la référence à l'instanciation classe modèle 'Matrix4x4<float>' en cours de compilation
+C:\Users\Fulbion\source\repos\QPXE11\include\Engine\Math\Matrix4x4.hpp(106,40): warning C4244: '=' : conversion de 'double' en 'T', perte possible de données
+          with
+          [
+              T=float
+          ]
+C:\Users\Fulbion\source\repos\QPXE11\include\Engine\Math\Matrix4x4.hpp(81,1): message : pendant la compilation de la fonction membre classe modèle 'void Matrix4x4<float>::inverse(void)'
+C:\Users\Fulbion\source\repos\QPXE11\src\App\AppWindow.cpp(61,21): message : voir la référence à l'instanciation de la fonction modèle 'void Matrix4x4<float>::inverse(void)' en cours de compilation
+C:\Users\Fulbion\source\repos\QPXE11\include\Engine\Math\Matrix4x4.hpp(107,40): warning C4244: '=' : conversion de 'double' en 'T', perte possible de données
+          with
+          [
+              T=float
+          ]
+C:\Users\Fulbion\source\repos\QPXE11\include\Engine\Math\Matrix4x4.hpp(108,40): warning C4244: '=' : conversion de 'double' en 'T', perte possible de données
+          with
+          [
+              T=float
+          ]
+C:\Users\Fulbion\source\repos\QPXE11\include\Engine\Math\Matrix4x4.hpp(109,40): warning C4244: '=' : conversion de 'double' en 'T', perte possible de données
+          with
+          [
+              T=float
+          ]
+  Génération de code en cours
+  1 of 2529 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    4 functions had inline decision re-evaluated but remain unchanged
+  Fin de la génération du code
+DirectXTex.lib(DirectXTexD3D11.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'DirectXTex.lib(DirectXTexD3D11.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+DirectXTex.lib(DirectXTexWIC.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'DirectXTex.lib(DirectXTexWIC.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+DirectXTex.lib(DirectXTexImage.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'DirectXTex.lib(DirectXTexImage.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+DirectXTex.lib(DirectXTexUtil.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'DirectXTex.lib(DirectXTexUtil.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+DirectXTex.lib(DirectXTexConvert.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'DirectXTex.lib(DirectXTexConvert.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+DirectXTex.lib(DirectXTexMipMaps.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'DirectXTex.lib(DirectXTexMipMaps.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+DirectXTex.lib(DirectXTexCompress.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'DirectXTex.lib(DirectXTexCompress.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+DirectXTex.lib(BC.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'DirectXTex.lib(BC.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+DirectXTex.lib(BC4BC5.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'DirectXTex.lib(BC4BC5.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+DirectXTex.lib(BC6HBC7.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'DirectXTex.lib(BC6HBC7.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+  QPXE11.vcxproj -> C:\Users\Fulbion\source\repos\QPXE11\bin\x64\Release\QPXE11.exe

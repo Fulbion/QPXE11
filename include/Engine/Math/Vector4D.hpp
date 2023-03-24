@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Engine/Math/Vector2D.hpp"
+#include "Engine/Math/Vector3D.hpp"
+
 template<typename T>
 class Vector4D
 {
@@ -18,8 +21,23 @@ public:
 	{
 	}
 
-	Vector4D(const Vector4D& vector4d) :
+	Vector4D(const Vector4D<T>& vector4d) :
 		x(vector4d.x), y(vector4d.y), z(vector4d.z), w(vector4d.w)
+	{
+	}
+
+	Vector4D(const Vector3D<T>& vector3d) :
+		x(vector3d.x), y(vector3d.y), z(vector3d.z), w(1.0f)
+	{
+	}
+
+	Vector4D(const Vector3D<T>& vector3d, T w) :
+		x(vector3d.x), y(vector3d.y), z(vector3d.z), w(w)
+	{
+	}
+
+	Vector4D(const Vector2D<T>& vector2d, T z, T w) :
+		x(vector2d.x), y(vector2d.y), z(z), w(w)
 	{
 	}
 
