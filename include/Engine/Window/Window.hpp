@@ -12,13 +12,15 @@ public:
 	bool isRunning();
 
 	RECT getClientWindowRect();
+	RECT getScreenSize();
 	// void setHWND(HWND hwnd);
 
-	virtual void onCreate() {};
-	virtual void onUpdate() {};
+	virtual void onCreate();
+	virtual void onUpdate();
 	virtual void onDestroy();
 	virtual void onFocus();
 	virtual void onKillFocus();
+	virtual void onSize();
 
 protected:
 	HWND m_hwnd;

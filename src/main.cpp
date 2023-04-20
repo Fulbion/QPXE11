@@ -1,29 +1,9 @@
 #include "App/AppWindow.hpp"
-#include "Engine/Input/InputSystem.hpp"
 
-int main()
+int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ PWSTR pCmdLine, _In_ int nCmdShow)
 {
-	GraphicsEngine::create();
-	InputSystem::create();
-
-	try
-	{
-		AppWindow app;
-
-		while (app.isRunning())
-		{
-		}
-	}
-
-	catch (const std::exception& e)
-	{
-		InputSystem::release();
-		GraphicsEngine::release();
-		return EXIT_FAILURE;
-	}
-
-	InputSystem::release();
-	GraphicsEngine::release();
+	AppWindow app;
+	app.run();
 
 	return EXIT_SUCCESS;
 }

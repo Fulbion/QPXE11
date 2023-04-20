@@ -7,7 +7,7 @@ SwapChain::SwapChain(HWND hwnd, UINT width, UINT height, RenderSystem* system) :
 	m_system(system)
 {
 	ID3D11Device* device = m_system->m_d3dDevice;
-
+	
 	DXGI_SWAP_CHAIN_DESC desc;
 	ZeroMemory(&desc, sizeof(desc));
 	desc.BufferCount = 1;
@@ -17,6 +17,7 @@ SwapChain::SwapChain(HWND hwnd, UINT width, UINT height, RenderSystem* system) :
 	desc.BufferDesc.RefreshRate.Numerator = 60;
 	desc.BufferDesc.RefreshRate.Denominator = 1;
 	desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	desc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 	desc.OutputWindow = hwnd;
 	desc.SampleDesc.Count = 1;
 	desc.SampleDesc.Quality = 0;
@@ -29,8 +30,42 @@ SwapChain::SwapChain(HWND hwnd, UINT width, UINT height, RenderSystem* system) :
 		throw std::exception("SwapChain: failed to create");
 	}
 
+	reloadBuffers(width, height);
+}
+
+SwapChain::~SwapChain()
+{
+	m_swapChain->Release();
+}
+
+void SwapChain::resize(UINT width, UINT height)
+{
+	if (m_rtv) m_rtv->Release();
+	if (m_dsv) m_dsv->Release();
+
+	m_swapChain->ResizeBuffers(1, width, height, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
+	reloadBuffers(width, height);
+}
+
+void SwapChain::setFullscreen(bool fullscreen, UINT width, UINT height)
+{
+	resize(width, height);
+	m_swapChain->SetFullscreenState(fullscreen, nullptr);
+}
+
+bool SwapChain::present(bool vsync)
+{
+	m_swapChain->Present(vsync, NULL);
+
+	return true;
+}
+
+void SwapChain::reloadBuffers(UINT width, UINT height)
+{
+	ID3D11Device* device = m_system->m_d3dDevice;
+
 	ID3D11Texture2D* buffer = NULL;
-	hr = m_swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&buffer);
+	HRESULT hr = m_swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&buffer);
 
 	if (FAILED(hr))
 	{
@@ -57,7 +92,7 @@ SwapChain::SwapChain(HWND hwnd, UINT width, UINT height, RenderSystem* system) :
 	textureDesc.MiscFlags = 0;
 	textureDesc.ArraySize = 1;
 	textureDesc.CPUAccessFlags = 0;
-	
+
 	hr = device->CreateTexture2D(&textureDesc, nullptr, &buffer);
 
 	if (FAILED(hr))
@@ -72,16 +107,4 @@ SwapChain::SwapChain(HWND hwnd, UINT width, UINT height, RenderSystem* system) :
 	{
 		throw std::exception("SwapChain: failed to create");
 	}
-}
-
-SwapChain::~SwapChain()
-{
-	m_swapChain->Release();
-}
-
-bool SwapChain::present(bool vsync)
-{
-	m_swapChain->Present(vsync, NULL);
-
-	return true;
 }

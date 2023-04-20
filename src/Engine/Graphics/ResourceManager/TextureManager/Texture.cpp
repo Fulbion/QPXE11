@@ -8,7 +8,7 @@ Texture::Texture(const wchar_t* fullPath) :
 	Resource(fullPath)
 {
 	DirectX::ScratchImage imageData;
-	HRESULT hr = DirectX::LoadFromWICFile(fullPath, DirectX::WIC_FLAGS_NONE, nullptr, imageData);
+	HRESULT hr = DirectX::LoadFromWICFile(fullPath, DirectX::WIC_FLAGS_IGNORE_SRGB, nullptr, imageData);
 
 	if (SUCCEEDED(hr))
 	{

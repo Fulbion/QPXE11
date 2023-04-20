@@ -21,8 +21,11 @@ public:
 	bool compileVertexShader(const wchar_t* fileName, const char* entryPointName, void** shaderByteCode, size_t* byteCodeSize);
 	bool compilePixelShader(const wchar_t* fileName, const char* entryPointName, void** shaderByteCode, size_t* byteCodeSize);
 	void releaseCompiledShader();
+	void setRasterizerState(CullType cullType);
 
 private:
+	void initRasterizerState();
+
 	DeviceContextPtr m_immDeviceContext;
 
 	ID3D11Device* m_d3dDevice;
@@ -34,6 +37,10 @@ private:
 	ID3D11DeviceContext* m_immContext;
 
 	ID3DBlob* m_blob = nullptr;
+
+	ID3D11RasterizerState* m_cullFrontState = nullptr;
+	ID3D11RasterizerState* m_cullBackState = nullptr;
+
 	ID3DBlob* m_vsblob = nullptr;
 	ID3DBlob* m_psblob = nullptr;
 	ID3D11VertexShader* m_vs = nullptr;

@@ -28,12 +28,19 @@ LRESULT __stdcall WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
         Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
         window->onDestroy();
-        ::PostQuitMessage(0);
+        PostQuitMessage(0);
+        break;
+    }
+
+    case WM_SIZE:
+    {
+        Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
+        if (window) window->onSize();
         break;
     }
 
     default:
-        return ::DefWindowProc(hwnd, msg, wParam, lParam);
+        return DefWindowProc(hwnd, msg, wParam, lParam);
     }
 
     return NULL;
@@ -67,7 +74,7 @@ Window::Window()
         WS_EX_OVERLAPPEDWINDOW,
         CLASS_NAME,
         L"Quipixel Engine 11",
-        WS_TILEDWINDOW,
+        WS_OVERLAPPEDWINDOW,
 
         CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top,
 
@@ -129,10 +136,28 @@ RECT Window::getClientWindowRect()
     return rc;
 }
 
+RECT Window::getScreenSize()
+{
+    RECT rc;
+
+    rc.right = GetSystemMetrics(SM_CXSCREEN);
+    rc.bottom = GetSystemMetrics(SM_CYSCREEN);
+
+    return rc;
+}
+
 // void Window::setHWND(HWND hwnd)
 // {
 //     this->m_hwnd = hwnd;
 // }
+
+void Window::onCreate()
+{
+}
+
+void Window::onUpdate()
+{
+}
 
 void Window::onDestroy()
 {
@@ -144,5 +169,9 @@ void Window::onFocus()
 }
 
 void Window::onKillFocus()
+{
+}
+
+void Window::onSize()
 {
 }

@@ -33,3 +33,9 @@ typedef std::shared_ptr<Texture> TexturePtr;
 typedef std::shared_ptr<Mesh> MeshPtr;
 // typedef std::shared_ptr<MeshManager> MeshManagerPtr;
 typedef std::shared_ptr<GraphicsEngine> GraphicsEnginePtr;
+
+enum class CullType
+{
+	Back,
+	Front
+};

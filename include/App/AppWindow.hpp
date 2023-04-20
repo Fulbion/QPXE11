@@ -31,13 +31,21 @@ public:
 	AppWindow();
 	~AppWindow();
 
+	void render();
 	void update();
+	void updateModel();
+	void updateSkyBox();
+	void updateCamera();
+	void drawMesh(const MeshPtr& mesh, const VertexShaderPtr& vs, const PixelShaderPtr& ps, const ConstantBufferPtr& cb, const TexturePtr& texture);
+
+	void run();
 
 	virtual void onCreate() override;
 	virtual void onUpdate() override;
 	virtual void onDestroy() override;
 	virtual void onFocus() override;
 	virtual void onKillFocus() override;
+	virtual void onSize() override;
 
 	virtual void onKeyPressed(int key) override;
 	virtual void onKeyReleased(int key) override;
@@ -56,11 +64,19 @@ private:
 	VertexBufferPtr m_vb;
 	IndexBufferPtr m_ib;
 	ConstantBufferPtr m_cb;
+	ConstantBufferPtr m_skyConstantBuffer;
 	VertexShaderPtr m_vs;
 	PixelShaderPtr m_ps;
+	PixelShaderPtr m_skyShader;
+
 	TexturePtr m_testTexture;
+	TexturePtr m_skyTexture;
 	MeshPtr m_testModel;
+	MeshPtr m_skyMesh;
 	
+	bool m_gameState;
+	bool m_fullscreen = false;
+
 	float m_oldDelta = 0;
 	float m_newDelta = 0;
 	float m_deltaTime = 0;
@@ -80,4 +96,6 @@ private:
 	float m_rightward = 0.0f;
 
 	Matrix4x4<float> m_worldCamera;
+	Matrix4x4<float> m_viewCamera;
+	Matrix4x4<float> m_projectionCamera;
 };
