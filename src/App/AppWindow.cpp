@@ -39,9 +39,18 @@ void AppWindow::render()
 	update();
 
 	GraphicsEngine::get()->getRenderSystem()->setRasterizerState(CullType::Back);
-	drawMesh(m_testModel, m_vs, m_ps, m_cb, m_testTexture);
+	
+	TexturePtr listTextures[2];
+	listTextures[0] = m_testTexture;
+	listTextures[1] = m_testSpecular;
+
+	drawMesh(m_testModel, m_vs, m_ps, m_cb, listTextures, 2);
+	
 	GraphicsEngine::get()->getRenderSystem()->setRasterizerState(CullType::Front);
-	drawMesh(m_skyMesh, m_vs, m_skyShader, m_skyConstantBuffer, m_skyTexture);
+	
+	listTextures[0] = m_skyTexture;
+	
+	drawMesh(m_skyMesh, m_vs, m_skyShader, m_skyConstantBuffer, listTextures, 1);
 
 	m_swapChain->present(true);
 
@@ -102,8 +111,8 @@ void AppWindow::updateCamera()
 	temp.rotateY(m_rotationY);
 	worldCamera *= temp;
 
-	Vector3f newPosition = m_worldCamera.getTranslation() + worldCamera.getZDirection() * (m_forward * 0.025f);
-	newPosition = newPosition + worldCamera.getXDirection() * (m_rightward * 0.025f);
+	Vector3f newPosition = m_worldCamera.getTranslation() + worldCamera.getZDirection() * (m_forward * m_deltaTime);
+	newPosition = newPosition + worldCamera.getXDirection() * (m_rightward * m_deltaTime);
 
 	worldCamera.translate(newPosition);
 	m_worldCamera = worldCamera;
@@ -125,7 +134,7 @@ void AppWindow::updateCamera()
 	m_projectionCamera.setPrespectiveFovLH(degToRad(90), ((float)width / (float)height), 0.1f, 100.0f);
 }
 
-void AppWindow::drawMesh(const MeshPtr& mesh, const VertexShaderPtr& vs, const PixelShaderPtr& ps, const ConstantBufferPtr& cb, const TexturePtr& texture)
+void AppWindow::drawMesh(const MeshPtr& mesh, const VertexShaderPtr& vs, const PixelShaderPtr& ps, const ConstantBufferPtr& cb, const TexturePtr* textures, UINT amountTextures)
 {
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(vs, cb);
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(ps, cb);
@@ -133,7 +142,7 @@ void AppWindow::drawMesh(const MeshPtr& mesh, const VertexShaderPtr& vs, const P
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexShader(vs);
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setPixelShader(ps);
 
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setTexture(ps, texture);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setTexture(ps, textures, amountTextures);
 
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(mesh->getVertexBuffer());
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setIndexBuffer(mesh->getIndexBuffer());
@@ -158,16 +167,17 @@ void AppWindow::onCreate()
 
 	m_gameState = true;
 
-	m_testTexture = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"resources/images/textures/test.png");
-	m_testModel = GraphicsEngine::get()->getMeshManager()->createMeshFromFile(L"resources/models/torus.obj");
+	m_testTexture = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"resources/images/textures/earth_color.jpg");
+	m_testSpecular = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"resources/images/textures/earth_spec.jpg");
+	m_testModel = GraphicsEngine::get()->getMeshManager()->createMeshFromFile(L"resources/models/sphere.obj");
 
-	m_skyTexture = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"resources/images/textures/sky.jpg");
+	m_skyTexture = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"resources/images/textures/space.jpg");
 	m_skyMesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile(L"resources/models/sphere.obj");
 
 	RECT rc = this->getClientWindowRect();
 	m_swapChain = GraphicsEngine::get()->getRenderSystem()->createSwapChain(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
 
-	m_worldCamera.translate(Vector3f(0, 0, -1));
+	m_worldCamera.translate(Vector3f(0, 0, -3));
 
 	float3 positionList[] =
 	{
@@ -308,29 +318,29 @@ void AppWindow::onSize()
 {
 	RECT rc = this->getClientWindowRect();
 	m_swapChain->resize(rc.right, rc.bottom);
-	this->onUpdate();
+	this->render();
 }
 
 void AppWindow::onKeyPressed(int key)
 {
 	if (key == 'Z')
 	{
-		m_forward = 1.0f;
+		m_forward = 3.0f;
 	}
 
 	if (key == 'S')
 	{
-		m_forward = -1.0f;
+		m_forward = -3.0f;
 	}
 
 	if (key == 'Q')
 	{
-		m_rightward = -1.0f;
+		m_rightward = -3.0f;
 	}
 
 	if (key == 'D')
 	{
-		m_rightward = 1.0f;
+		m_rightward = 3.0f;
 	}
 }
 
@@ -361,8 +371,8 @@ void AppWindow::onMouseMove(const Vector2i& mousePosition)
 	UINT width = this->getClientWindowRect().right - this->getClientWindowRect().left;
 	UINT height = this->getClientWindowRect().bottom - this->getClientWindowRect().top;
 
-	m_rotationX += (mousePosition.y - (height / 2.0f)) * m_deltaTime * 0.5f;
-	m_rotationY += (mousePosition.x - (width / 2.0f)) * m_deltaTime * 0.5f;
+	m_rotationX += (mousePosition.y - (height / 2.0f)) * 0.005f;
+	m_rotationY += (mousePosition.x - (width / 2.0f)) * 0.005f;
 
 	InputSystem::get()->setCursorPosition(Vector2i(width / 2.0f, height / 2.0f));
 }

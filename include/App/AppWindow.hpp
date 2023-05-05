@@ -36,7 +36,7 @@ public:
 	void updateModel();
 	void updateSkyBox();
 	void updateCamera();
-	void drawMesh(const MeshPtr& mesh, const VertexShaderPtr& vs, const PixelShaderPtr& ps, const ConstantBufferPtr& cb, const TexturePtr& texture);
+	void drawMesh(const MeshPtr& mesh, const VertexShaderPtr& vs, const PixelShaderPtr& ps, const ConstantBufferPtr& cb, const TexturePtr* texture, UINT amountTextures);
 
 	void run();
 
@@ -70,6 +70,7 @@ private:
 	PixelShaderPtr m_skyShader;
 
 	TexturePtr m_testTexture;
+	TexturePtr m_testSpecular;
 	TexturePtr m_skyTexture;
 	MeshPtr m_testModel;
 	MeshPtr m_skyMesh;
@@ -77,8 +78,8 @@ private:
 	bool m_gameState;
 	bool m_fullscreen = false;
 
-	float m_oldDelta = 0;
-	float m_newDelta = 0;
+	unsigned long long m_oldDelta = 0;
+	unsigned long long m_newDelta = 0;
 	float m_deltaTime = 0;
 
 	float m_deltaPos = 0;

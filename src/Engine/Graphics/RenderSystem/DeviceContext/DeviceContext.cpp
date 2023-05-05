@@ -78,14 +78,28 @@ void DeviceContext::setPixelShader(const PixelShaderPtr& pixelShader)
 	m_deviceContext->PSSetShader(pixelShader->m_ps, nullptr, 0);
 }
 
-void DeviceContext::setTexture(const VertexShaderPtr& vertexShader, const TexturePtr& texture)
+void DeviceContext::setTexture(const VertexShaderPtr& vertexShader, const TexturePtr* texture, UINT amountTextures)
 {
-	m_deviceContext->VSSetShaderResources(0, 1, &texture->m_shaderResourceView);
+	ID3D11ShaderResourceView* listResources[32];
+
+	for (int i = 0; i < amountTextures; i++)
+	{
+		listResources[i] = texture[i]->m_shaderResourceView;
+	}
+
+	m_deviceContext->VSSetShaderResources(0, 1, listResources);
 }
 
-void DeviceContext::setTexture(const PixelShaderPtr& pixelShader, const TexturePtr& texture)
+void DeviceContext::setTexture(const PixelShaderPtr& pixelShader, const TexturePtr* texture, UINT amountTextures)
 {
-	m_deviceContext->PSSetShaderResources(0, 1, &texture->m_shaderResourceView);
+	ID3D11ShaderResourceView* listResources[32];
+
+	for (int i = 0; i < amountTextures; i++)
+	{
+		listResources[i] = texture[i]->m_shaderResourceView;
+	}
+
+	m_deviceContext->PSSetShaderResources(0, 1, listResources);
 }
 
 void DeviceContext::setConstantBuffer(const VertexShaderPtr& vertexShader, const ConstantBufferPtr& buffer)
